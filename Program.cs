@@ -18,7 +18,9 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer(); // ✅ substitui AddOpenApi
+builder.Services.AddSwaggerGen();  // ✅ substitui AddOpenApi
+// builder.Services.AddOpenApi();
 builder.Services.AddScoped<DocxToPdfService>();
 
 var app = builder.Build();
@@ -29,7 +31,9 @@ app.Urls.Add($"http://*:{port}");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    // app.MapOpenApi();
+    app.UseSwagger();       // ✅ substitui MapOpenApi
+    app.UseSwaggerUI();     // ✅ substitui MapOpenApi
 }
 
 app.UseCors();
