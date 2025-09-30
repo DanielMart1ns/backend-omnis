@@ -1,0 +1,54 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# ASP.NET secrets
+secrets.json
+
+# Logs
+*.log
+
+# Publish output
+publish/
+*.pubxml
+
+# Runtime files
+*.pid
+*.db
+*.sqlite
+*.db-shm
+*.db-wal
+
+# Environment configs
+.env
+.env.*
+
+# Dependency folders
+node_modules/
+packages/
+
+# Docker artifacts
+*.tar
+*.gz
+*.lock
+Dockerfile.*
+
+# OS-specific
+Thumbs.db
+.DS_Store
+
+# Render-specific
+render.yaml
