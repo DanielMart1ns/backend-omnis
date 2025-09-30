@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: docx-to-pdf-api
+    name: backend-omnis
     env: docker
     plan: free
     repo: https://github.com/DanielMart1ns/backend-omnis
