@@ -50,5 +50,6 @@ Dockerfile.*
 Thumbs.db
 .DS_Store
 
-# # Render-specific
-# render.yaml
+# Render-specific
+render.yaml
+Dockerfile

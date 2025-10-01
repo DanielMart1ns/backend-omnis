@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: backend-omnis
-    env: docker
-    plan: free
-    repo: https://github.com/DanielMart1ns/backend-omnis
-    branch: main
-    dockerfilePath: Dockerfile
