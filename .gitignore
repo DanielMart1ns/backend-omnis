@@ -53,3 +53,6 @@ Thumbs.db
 # Render-specific
 render.yaml
 Dockerfile
+
+#env
+appsettings.Development.json

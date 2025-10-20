@@ -20,8 +20,19 @@ public class PdfGeneratorService
                 page.DefaultTextStyle(x => x.FontSize(12));
 
                 page.Header()
-                    .Text("Nucleu Tecnologia PDF Teste")
-                    .SemiBold().FontSize(20).FontColor(Colors.Blue.Medium);
+                    .Row(row =>
+                        {
+                            row.ConstantItem(60)
+                                .Height(60)
+                                .AlignMiddle()
+                                .Image("assets/logo.png");
+
+                            row.RelativeItem()
+                                .AlignMiddle()
+                                .PaddingLeft(10)
+                                .Text("Nucleu Tecnologia")
+                                .SemiBold().FontSize(20).FontColor(Colors.Blue.Medium);
+                        });
 
                 page.Content()
                     .PaddingVertical(1, Unit.Centimetre)

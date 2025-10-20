@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json; 
+
 using PdfGenerator.Service;
-// using DocxToPdf.Service;
+using EmailSender.Service;
+using WppSender.Service;
+
+using System.Text.Json;
 
 namespace Pdf.Controller;
 
@@ -10,53 +13,29 @@ namespace Pdf.Controller;
 public class PdfController : ControllerBase
 {
     private readonly PdfGeneratorService _pdfService;
+    private readonly EmailSenderService _emailService;
+    private readonly WppSenderService _wppService;
 
-    public PdfController(PdfGeneratorService pdfService)
+    public PdfController(PdfGeneratorService pdfService,
+                            EmailSenderService emailService,
+                            WppSenderService wppService)
     {
         _pdfService = pdfService;
+        _emailService = emailService;
+        _wppService = wppService;
     }
 
     [HttpPost("generate")]
     public async Task<IActionResult> ConvertToPdf(JsonElement content)
     {
-        var pdfBytes = _pdfService.GeneratePdfFromJson(content);
-        var base64Pdf = Convert.ToBase64String(pdfBytes);
+        byte[] pdfBytes = _pdfService.GeneratePdfFromJson(content);
+        string base64Pdf = Convert.ToBase64String(pdfBytes);
+
+        //Mandar email automatico
+        // bool emailSended = await _emailService.SendEmail(base64Pdf);
+
+        // bool fileSendedToWpp = await _wppService.SendFileToWpp(pdfBytes);
+
         return Ok(base64Pdf);
     }
 }
-
-// [ApiController]
-// [Route("api/pdf")]
-// public class PdfController : ControllerBase
-// {
-//     private readonly DocxToPdfService _pdfService;
-
-//     public PdfController(DocxToPdfService pdfService)
-//     {
-//         _pdfService = pdfService;
-//     }
-
-//     [HttpPost("from-docx")]
-//     public async Task<IActionResult> ConverterDocxEmHtml(IFormFile file, bool fileIsMoreThan1MB)
-//     {
-//         using var stream = file.OpenReadStream();
-//         using var writableStream = new MemoryStream();
-//         await stream.CopyToAsync(writableStream);
-//         writableStream.Position = 0;
-//         var html = _pdfService.ConverterDocxEmHtml(writableStream);
-
-//         var pdfBytes = _pdfService.HtmlToPdf(html, fileIsMoreThan1MB);
-//         var (fullFileContent, previewFileContent) = pdfBytes;
-
-//         if(fileIsMoreThan1MB)
-//         {            
-//             return Ok(new 
-//             {
-//                 fullFile = Convert.ToBase64String(fullFileContent),
-//                 previewFile = Convert.ToBase64String(previewFileContent)
-//             });
-//         }
-
-//         return File(fullFileContent, "application/pdf", "arquivo.pdf");
-//     }
-// }

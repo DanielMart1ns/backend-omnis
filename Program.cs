@@ -1,6 +1,9 @@
 // using DocxToPdf.Service;
-using PdfGenerator.Service;
 using QuestPDF.Infrastructure;
+
+using PdfGenerator.Service;
+using EmailSender.Service;
+using WppSender.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +22,14 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+builder.Services.AddScoped<PdfGeneratorService>();
+builder.Services.AddScoped<WppSenderService>();
+builder.Services.AddSingleton<EmailSenderService>();
+
 // builder.Services.AddEndpointsApiExplorer(); // ✅ substitui AddOpenApi
 // builder.Services.AddSwaggerGen();  // ✅ substitui AddOpenApi
-builder.Services.AddOpenApi();
 // builder.Services.AddScoped<DocxToPdfService>();
-builder.Services.AddScoped<PdfGeneratorService>();
-
 
 var app = builder.Build();
 
